@@ -1,0 +1,16 @@
+Úkol máte naprogramový správně až na jednu drobnost, a to je okraj řešené oblasti.
+Ve Vašem výpočtu zůstává okraj řešené oblasti konstantní v průběhu celého výpočtu.
+Pro nápravu je nutné buď počítat okrajové body speciálně (vzoreček je analogický vnitřku oblasti 
+- sečtete hodnoty všech n okolních bodů a odečtete n krát hodnotu centrálního bodu), 
+nebo zavést periodické okrajové podmínky. Opravil jsem.
+
+Pár dalších komentářů je v kódu.
+
+Oceňuji velmi kvalitní grafický výstup.
+
+Odpověď na Vaši otázku - blesk je elektrický výboj. Elektrony se pohybují podél siločar.
+Navíc v okolí ostrých předmětů je pole tak silné, že ionizuje vzduch - jev, který se nazývá Eliášův oheň.
+
+Tím, že řešíte Laplaceovu rovnici bez zdrojů, lze počítat i jednodušším algoritmem (Jacobiho algoritmus).
+
+Za Vaše řešení dávám 9 bodů.

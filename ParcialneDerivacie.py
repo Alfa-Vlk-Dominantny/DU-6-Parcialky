@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-
 def RungeKutta4Order(f, y0, t, args=()):
     """moja funkcia z predoslej DU na ODR """
     n = len(t)
@@ -23,6 +22,19 @@ def laplace_operator(phi, h):
     laplace = np.zeros_like(phi)
     laplace[1:-1, 1:-1] = (phi[1:-1, 2:] + phi[1:-1, :-2] +
                            phi[2:, 1:-1] + phi[:-2, 1:-1] - 4 * phi[1:-1, 1:-1]) / h ** 2
+
+    #PS Okraje
+    laplace[0,1:-1] = (phi[0,2:] + phi[0,:-2] + phi[1,1:-1] - 3 * phi[0,1:-1]) / h ** 2
+    laplace[-1,1:-1] = (phi[-1,2:] + phi[-1,:-2] + phi[-2,1:-1] - 3 * phi[-1,1:-1]) / h ** 2
+    laplace[1:-1,0] = (phi[2:,0] + phi[:-2,0] + phi[1:-1,1] -  3 * phi[1:-1,0]) / h ** 2
+    laplace[1:-1,-1] = (phi[2:,-1] + phi[:-2,-1] + phi[1:-1,-2] - 3 * phi[1:-1,-1]) / h ** 2
+
+    #PS Rohy
+    laplace[0,0] = (phi[0,1] + phi[1,0] - 2 * phi[0,0]) / h ** 2
+    laplace[0,-1] = (phi[0,-2] + phi[1,-1] - 2 * phi[0,-1]) / h ** 2
+    laplace[-1,0] = (phi[-1,1] + phi[-2,0] - 2 * phi[-1,0]) / h ** 2
+    laplace[-1,-1] = (phi[-1,-2] + phi[-2,-1] - 2 * phi[-1,-1]) / h ** 2
+
     return laplace
 
 
@@ -162,6 +174,7 @@ print()
 #########################################
 
 # Parametre hromozvodu
+#PS Tady je vidět, jak jsou někdy komentáře na škodu. Komentář je o osobě, přitom ale definujete hromosvod.
 lightning_rod_height = 0.8  # Nasa osoba je vysoka 0,5
 rod_width = 0.02
 rod_x_center = 0.7  #Posunuly sme doprava
@@ -271,6 +284,8 @@ E_mag2 = np.sqrt(Ex2 ** 2 + Ey2 ** 2)
 
 cont2 = axes[1, 0].contourf(X, Y, phi2_final, levels=20, cmap='viridis')
 plt.colorbar(cont2, ax=axes[1, 0], label='Potenciál [V]')
+#PS Pro oblasti je i tady dobré použít parametry polohy osoby a hromosvodu, jako máte výše.
+#PS Vše bude dobře fungovat i v případě, že změníte polohu nebo velikost osoby.
 axes[1, 0].fill_between([0.45, 0.55], 0, 0.5, color='gray', alpha=0.5, label='Osoba')
 axes[1, 0].set_title('2. Osoba: Potenciál')
 
